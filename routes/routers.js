@@ -1,0 +1,13 @@
+const express = require("express");
+const registerUser = require("../controller/registerUser");
+const jwtController = require("../controller/jwtControler");
+const postData = require("../controller/postData");
+const getData = require("../controller/getData");
+const addAvatar = require("../controller/addAvatar");
+const registerUserRouter = express.Router();
+const dataRouter = express.Router();
+registerUserRouter.route("/registerUser").post(registerUser);
+dataRouter.route("/data").post(jwtController, postData);
+dataRouter.route("/data").get(jwtController, getData);
+dataRouter.route("/avatar").patch(jwtController, addAvatar);
+module.exports = { registerUserRouter, dataRouter };
