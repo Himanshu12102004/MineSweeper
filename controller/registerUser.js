@@ -1,4 +1,5 @@
 const userSchema = require("../model/userModel");
+const hashPassword = require("../utils/security/hashPassword");
 const GlobalError = require("../utils/errorHandling/customErrorClass");
 const createToken = require("../utils/security/jwtCreation");
 const isBadWord = require("../utils/nameValidity/badWordsBlocker/badWordsChecker");
@@ -6,6 +7,7 @@ const hasSpecialCharacters = require("../utils/nameValidity/nameRegex/namevalidi
 const registerUser = async (req, res, next) => {
   try {
     const name = req.body.name;
+    console.log(req.body);
     if (await userSchema.findOne({ name })) throw new Error("userExists");
     else if (isBadWord(name)) {
       throw new Error("noVulgarWordsAllowed");
@@ -15,7 +17,8 @@ const registerUser = async (req, res, next) => {
       throw new Error("nameLengthNotValid");
     } else {
       console.log("hello");
-      const user = await userSchema.create({ name });
+      const hashedPassword = await hashPassword(req.body.password);
+      const user = await userSchema.create({ name, password: hashedPassword });
       const wholeData = await userSchema.find(
         {},
         { name: true, leaderBoardData: true, avatar: true }

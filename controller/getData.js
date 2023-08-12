@@ -10,7 +10,7 @@ const getData = async (req, res, next) => {
       err: null,
       status: "success",
       message: {
-        response: "dataSaved",
+        response: "dataSent",
 
         data: req.user,
         leaderBoard: wholeData,

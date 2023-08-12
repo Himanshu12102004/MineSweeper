@@ -15,7 +15,7 @@ const addAvatar = async (req, res, next) => {
       err: null,
       status: "success",
       message: {
-        response: "dataSaved",
+        response: "addedAvatar",
 
         data: await users.findById(req.user._id),
         leaderBoard: wholeData,

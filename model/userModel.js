@@ -10,7 +10,10 @@ const userSchema = mongoose.Schema({
     default: "0.svg",
   },
   matchesWon: { type: Number, default: 0 },
-
+  password: {
+    type: String,
+    required: [true, "password is required"],
+  },
   leaderBoardData: {
     rank: {
       type: Number,
