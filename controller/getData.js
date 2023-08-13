@@ -1,6 +1,9 @@
 const users = require("../model/userModel");
 const getData = async (req, res, next) => {
   try {
+    if (!req.user) {
+      throw new Error("loginFirst");
+    }
     const wholeData = await users.find(
       {},
       { name: true, leaderBoardData: true, avatar: true }
